@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {searchProducts,filterByCategory,fetchCategories} from "../redux/productSlice";
+import {searchProducts,filterByCategory,fetchCategories,sortProductsByPrice} from "../redux/productSlice";
 import { IoIosSearch } from "react-icons/io";
 import "../App.css";
 
@@ -8,6 +8,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.products.categories);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
     // Fetch the unique categories when the component mounts
@@ -19,6 +20,13 @@ const Search = () => {
     setSelectedCategory(category);
     dispatch(filterByCategory(category));
   };
+
+  const handleSortChange = (e) => {
+    const sortValue = e.target.value;
+    setSortOption(sortValue);
+    dispatch(sortProductsByPrice(sortValue));
+  };
+
 
   return (
     <>
@@ -46,6 +54,13 @@ const Search = () => {
       <marquee className="marquee">
         <b>Great Indian Festival DIWALI SPECIAL shop now🥳🤑</b>
       </marquee>
+      <div className="sort-wrap">
+        <select value={sortOption} onChange={handleSortChange} className="sort-dropdown">
+          <option value="">Sort by Price</option>
+          <option value="lowToHigh">Price: Low to High</option>
+          <option value="highToLow">Price: High to Low</option>
+        </select>
+      </div>
     </>
   );
 };

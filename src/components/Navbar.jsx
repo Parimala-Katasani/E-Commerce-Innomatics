@@ -11,16 +11,15 @@ import { MdCardGiftcard } from "react-icons/md";
 const Navbar = () => {
 
   const cartItems = useSelector(state => state.cart.items) || [];
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <nav>
        <h1>E-commerce</h1>
-      <Link to="/"><IoHome  size="35px"/>Home</Link>
-      <Link to="/"><BiSolidOffer size="35px"/>Offers</Link>
-      <Link to="/"><FaMoneyCheckDollar  size="35px"/>Payment</Link>
-      <Link to="/"><MdCardGiftcard size="35px"/>Gift Cards</Link>
-      <Link to="/cart"><GiShoppingCart size="35px"/>Cart {totalItems}</Link>
+      <Link to="/"><IoHome  size="20px"/>Home</Link>
+      <Link to="/"><BiSolidOffer size="20px"/>Offers</Link>
+      <Link to="/"><FaMoneyCheckDollar  size="20px"/>Payment</Link>
+      <Link to="/"><MdCardGiftcard size="20px"/>Gift Cards</Link>
+      <Link to="/cart"><GiShoppingCart size="20px"/>Cart {cartItems.length}</Link>
     </nav>
   );
 };

@@ -28,6 +28,15 @@ const productSlice = createSlice({
         );
       }
     },
+    sortProductsByPrice: (state, action) => {
+      const sortedProducts = [...state.filteredItems];
+      if (action.payload === 'lowToHigh') {
+        sortedProducts.sort((a, b) => a.price - b.price);
+      } else if (action.payload === 'highToLow') {
+        sortedProducts.sort((a, b) => b.price - a.price);
+      }
+      state.filteredItems = sortedProducts;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
@@ -40,6 +49,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { searchProducts, filterByCategory } = productSlice.actions;
+export const { searchProducts, filterByCategory, sortProductsByPrice } = productSlice.actions;
 export const selectFilteredProducts = (state) => state.products.filteredItems;
 export default productSlice.reducer;
